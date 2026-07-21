@@ -67,21 +67,30 @@ body::before{
 /* ── NAVBAR ──────────────────────────────────────────────────────────────── */
 #nav{
   position:fixed;top:0;left:0;right:0;z-index:900;
-  padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;
   transition:background .4s,border-color .4s;
-  border-bottom:1px solid transparent;
+  border-bottom:1px solid transparent;flex-wrap:wrap;
 }
 #nav.scrolled{background:rgba(12,12,14,.92);backdrop-filter:blur(16px);border-color:var(--border)}
 .nav-logo{
   font-family:var(--serif);font-size:1.35rem;letter-spacing:-.01em;color:var(--accent);
 }
 .nav-logo span{color:var(--accent2)}
-.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links{display:flex;gap:2rem;align-items:center;flex-wrap:wrap}
 .nav-links a{
   font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
   transition:color .2s;
 }
 .nav-links a:hover{color:var(--text)}
+.nav-controls{display:flex;align-items:center;gap:.75rem;margin-left:auto}
+.lang-switcher{display:flex;gap:.35rem;padding:.2rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:999px}
+.lang-switch{
+  padding:.35rem .55rem;border:1px solid transparent;border-radius:999px;
+  font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.08em;
+  text-transform:uppercase;transition:all .2s;background:transparent;
+}
+.lang-switch:hover{border-color:var(--accent3);color:var(--accent3)}
+.lang-switch.active{background:rgba(74,158,255,.12);border-color:var(--accent3);color:var(--accent3)}
 .nav-cta{
   padding:.5rem 1.25rem;border:1px solid var(--accent2);color:var(--accent2);
   font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
@@ -417,6 +426,7 @@ footer{
 @media(max-width:768px){
   #nav{padding:1rem 1.25rem}
   .nav-links{display:none}
+  .nav-controls{margin-left:auto}
   .hamburger{display:flex}
   #hero{padding:7rem 1.25rem 3rem}
   .about-grid,.music-grid{grid-template-columns:1fr}
@@ -439,32 +449,39 @@ footer{
 <nav id="nav">
   <a href="#hero" class="nav-logo">DAA<span>.</span></a>
   <div class="nav-links">
-    <a href="#about">Über mich</a>
-    <a href="#skills">Skills</a>
-    <a href="#experience">Erfahrung</a>
-    <a href="#projects">Projekte</a>
-    <a href="#music">Musik</a>
-    <a href="#contact" class="nav-cta">Kontakt</a>
+    <a href="#about" data-i18n="nav.about">Über mich</a>
+    <a href="#skills" data-i18n="nav.skills">Skills</a>
+    <a href="#experience" data-i18n="nav.experience">Erfahrung</a>
+    <a href="#projects" data-i18n="nav.projects">Projekte</a>
+    <a href="#music" data-i18n="nav.music">Musik</a>
+    <a href="#contact" class="nav-cta" data-i18n="nav.contact">Kontakt</a>
   </div>
-  <div class="hamburger" id="hamburger" aria-label="Menü öffnen" role="button" tabindex="0">
-    <span></span><span></span><span></span>
+  <div class="nav-controls">
+    <div class="lang-switcher" aria-label="Language selector">
+      <button class="lang-switch" data-lang="de" aria-label="Deutsch">DE</button>
+      <button class="lang-switch" data-lang="en" aria-label="English">EN</button>
+      <button class="lang-switch" data-lang="es" aria-label="Español">ES</button>
+    </div>
+    <div class="hamburger" id="hamburger" aria-label="Menü öffnen" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </nav>
 
 <!-- ── MOBILE MENU ────────────────────────────────────────────────────────── -->
 <div class="nav-mobile" id="mobileMenu">
-  <a href="#about" class="mobile-link">Über mich</a>
-  <a href="#skills" class="mobile-link">Skills</a>
-  <a href="#experience" class="mobile-link">Erfahrung</a>
-  <a href="#projects" class="mobile-link">Projekte</a>
-  <a href="#music" class="mobile-link">Musik</a>
-  <a href="#contact" class="mobile-link">Kontakt</a>
+  <a href="#about" class="mobile-link" data-i18n="nav.about">Über mich</a>
+  <a href="#skills" class="mobile-link" data-i18n="nav.skills">Skills</a>
+  <a href="#experience" class="mobile-link" data-i18n="nav.experience">Erfahrung</a>
+  <a href="#projects" class="mobile-link" data-i18n="nav.projects">Projekte</a>
+  <a href="#music" class="mobile-link" data-i18n="nav.music">Musik</a>
+  <a href="#contact" class="mobile-link" data-i18n="nav.contact">Kontakt</a>
 </div>
 
 <!-- ── HERO ───────────────────────────────────────────────────────────────── -->
 <section id="hero">
   <div>
-    <p class="hero-eyebrow">Düsseldorf, Deutschland — Ab sofort verfügbar!</p>
+    <p class="hero-eyebrow" data-i18n="hero.eyebrow">Düsseldorf, Deutschland — Ab sofort verfügbar!</p>
     <h1 class="hero-name">
       Damian<br><em>Antonio</em><br>Avila
     </h1>
@@ -472,25 +489,25 @@ footer{
       <span class="typed-text" id="typedText"></span><span class="typed-cursor"></span>
     </p>
     <div class="hero-ctas">
-      <a href="#projects" class="btn-primary">Projekte ansehen</a>
-      <a href="#contact" class="btn-secondary">Kontakt aufnehmen</a>
+      <a href="#projects" class="btn-primary" data-i18n="hero.ctaPrimary">Projekte ansehen</a>
+      <a href="#contact" class="btn-secondary" data-i18n="hero.ctaSecondary">Kontakt aufnehmen</a>
     </div>
     <div class="hero-stats">
       <div class="stat-item">
         <div class="stat-num" id="countYears">0</div>
-        <div class="stat-label">Jahre Berufserfahrung</div>
+        <div class="stat-label" data-i18n="hero.stats.years">Jahre Berufserfahrung</div>
       </div>
       <div class="stat-item">
         <div class="stat-num" id="countInstruments">0</div>
-        <div class="stat-label">Instrumente</div>
+        <div class="stat-label" data-i18n="hero.stats.instruments">Instrumente</div>
       </div>
       <div class="stat-item">
         <div class="stat-num" id="countLangs">0</div>
-        <div class="stat-label">Sprachen</div>
+        <div class="stat-label" data-i18n="hero.stats.languages">Sprachen</div>
       </div>
     </div>
   </div>
-  <div class="hero-scroll-hint">scroll</div>
+  <div class="hero-scroll-hint" data-i18n="hero.scrollHint">scroll</div>
 </section>
 
 <hr class="section-divider"/>
@@ -498,63 +515,52 @@ footer{
 <!-- ── ABOUT ──────────────────────────────────────────────────────────────── -->
 <section id="about">
   <div class="section">
-    <p class="section-label reveal">01 — Profil</p>
-    <h2 class="section-title reveal">Wer ich bin</h2>
+    <p class="section-label reveal" data-i18n="sections.profile.label">01 — Profil</p>
+    <h2 class="section-title reveal" data-i18n="sections.profile.title">Wer ich bin</h2>
     <div class="about-grid">
       <div class="about-text reveal">
-        <p>
+        <p data-i18n-html="about.paragraphs.0">
           Ich bin <strong>Damian</strong> — gebürtig aus Neuquén, Argentinien, 
           aufgewachsen in Südchile, heute in <strong>Düsseldorf</strong> verwurzelt.
           Mein Weg in die IT ist kein geradliniger, aber ein ehrlicher: 19 Jahre 
           internationale Berufserfahrung, Zwei Kontinente, und eine echte 
           Leidenschaft für das Bauen von Dingen, die funktionieren.
         </p>
-        <p>
+        <p data-i18n-html="about.paragraphs.1">
           Aktuell schließe ich meine <strong>Umschulung zum Fachinformatiker 
           Anwendungsentwicklung</strong> bei BBQ Düsseldorf ab (IHK 2026).
           Parallel dazu habe ich ein vollständiges Inventar- und 
           Bestandsverwaltungssystem für das BBQ-Labor entwickelt — von der 
           Konzeption bis zur Implementierung.
         </p>
-        <p>
+        <p data-i18n-html="about.paragraphs.2">
           Ich bringe mit, was man nicht aus Büchern lernt: <strong>Stressresistenz</strong>,
           echte Teamführung, internationale Kommunikation und die Fähigkeit, 
           komplexe Probleme pragmatisch zu lösen. Tech ist mein neues Handwerk — 
           und ich nehme es genauso ernst wie alles andere in meinem Leben.
         </p>
-        <div class="about-tags">
-          <span class="tag">TypeScript</span>
-          <span class="tag">Node.js</span>
-          <span class="tag">Express.js</span>
-          <span class="tag">SQL</span>
-          <span class="tag">REST APIs</span>
-          <span class="tag">Scrum</span>
-          <span class="tag">Git</span>
-          <span class="tag">Java</span>
-          <span class="tag">Python</span>
-          <span class="tag">Linux CLI</span>
-        </div>
+        <div class="about-tags" id="aboutTags"></div>
       </div>
       <div class="about-aside reveal">
         <div class="about-card">
           <div class="about-card-icon">🌍</div>
-          <div class="about-card-title">International</div>
-          <div class="about-card-text"> Chile · Deutschland · — gelebt, gearbeitet, aufgetreten. Multilingualität ist Alltag, nicht Skill-Badge.</div>
+          <div class="about-card-title" data-i18n="about.cards.international.title">International</div>
+          <div class="about-card-text" data-i18n="about.cards.international.text"> Chile · Deutschland · — gelebt, gearbeitet, aufgetreten. Multilingualität ist Alltag, nicht Skill-Badge.</div>
         </div>
         <div class="about-card">
           <div class="about-card-icon">⚡</div>
-          <div class="about-card-title">Quereinsteiger mit Tiefe</div>
-          <div class="about-card-text">Technischer Support, Telekommunikation, ROV-Pilotage, Gastronomie-Management — jede Rolle hat mein Denken geschärft.</div>
+          <div class="about-card-title" data-i18n="about.cards.depth.title">Quereinsteiger mit Tiefe</div>
+          <div class="about-card-text" data-i18n="about.cards.depth.text">Technischer Support, Telekommunikation, ROV-Pilotage, Gastronomie-Management — jede Rolle hat mein Denken geschärft.</div>
         </div>
         <div class="about-card">
           <div class="about-card-icon">🎸</div>
-          <div class="about-card-title">Musiker & Kreativer</div>
-          <div class="about-card-text">25+ Jahre Musikerfahrung, 7 Instrumente, Live-Auftritte auf Festivals in Europa und Chile. Kreativität ist keine Dekoration — sie ist Denkweise.</div>
+          <div class="about-card-title" data-i18n="about.cards.creative.title">Musiker & Kreativer</div>
+          <div class="about-card-text" data-i18n="about.cards.creative.text">25+ Jahre Musikerfahrung, 7 Instrumente, Live-Auftritte auf Festivals in Europa und Chile. Kreativität ist keine Dekoration — sie ist Denkweise.</div>
         </div>
         <div class="about-card">
           <div class="about-card-icon">🤖</div>
-          <div class="about-card-title">AI-Native Workflow</div>
-          <div class="about-card-text">Ich kombiniere klassische Softwareentwicklung mit KI-gestützten Tools (Claude, Copilot, ChatGPT) für schnelleres Prototyping und besseres Debugging.</div>
+          <div class="about-card-title" data-i18n="about.cards.ai.title">AI-Native Workflow</div>
+          <div class="about-card-text" data-i18n="about.cards.ai.text">Ich kombiniere klassische Softwareentwicklung mit KI-gestützten Tools (Claude, Copilot, ChatGPT) für schnelleres Prototyping und besseres Debugging.</div>
         </div>
       </div>
     </div>
@@ -566,8 +572,8 @@ footer{
 <!-- ── SKILLS ─────────────────────────────────────────────────────────────── -->
 <section id="skills">
   <div class="section">
-    <p class="section-label reveal">02 — Kompetenzen</p>
-    <h2 class="section-title reveal">Tech Stack &amp; Skills</h2>
+    <p class="section-label reveal" data-i18n="sections.skills.label">02 — Kompetenzen</p>
+    <h2 class="section-title reveal" data-i18n="sections.skills.title">Tech Stack &amp; Skills</h2>
     <div class="skills-grid" id="skillsGrid"></div>
   </div>
 </section>
@@ -577,8 +583,8 @@ footer{
 <!-- ── EXPERIENCE ─────────────────────────────────────────────────────────── -->
 <section id="experience">
   <div class="section">
-    <p class="section-label reveal">03 — Werdegang</p>
-    <h2 class="section-title reveal">Erfahrung &amp; Ausbildung</h2>
+    <p class="section-label reveal" data-i18n="sections.experience.label">03 — Werdegang</p>
+    <h2 class="section-title reveal" data-i18n="sections.experience.title">Erfahrung &amp; Ausbildung</h2>
     <div class="timeline" id="timeline"></div>
   </div>
 </section>
@@ -588,8 +594,8 @@ footer{
 <!-- ── PROJECTS ───────────────────────────────────────────────────────────── -->
 <section id="projects">
   <div class="section">
-    <p class="section-label reveal">04 — Portfolio</p>
-    <h2 class="section-title reveal">Projekte</h2>
+    <p class="section-label reveal" data-i18n="sections.projects.label">04 — Portfolio</p>
+    <h2 class="section-title reveal" data-i18n="sections.projects.title">Projekte</h2>
     <div class="projects-grid" id="projectsGrid"></div>
   </div>
 </section>
@@ -599,32 +605,15 @@ footer{
 <!-- ── MUSIC ──────────────────────────────────────────────────────────────── -->
 <section id="music">
   <div class="section">
-    <p class="section-label reveal">05 — Kreativität</p>
-    <h2 class="section-title reveal">Musik &amp; Kunst</h2>
+    <p class="section-label reveal" data-i18n="sections.music.label">05 — Kreativität</p>
+    <h2 class="section-title reveal" data-i18n="sections.music.title">Musik &amp; Kunst</h2>
     <div class="music-grid">
       <div class="reveal">
         <div class="music-years">25+</div>
-        <div class="music-years-label">Jahre aktive Musikerfahrung</div>
-        <div class="music-instruments" style="margin-top:1.5rem">
-          <div class="instrument-chip">🎸 Gitarre</div>
-          <div class="instrument-chip">🎻 Cello</div>
-          <div class="instrument-chip">🥁 Schlagzeug</div>
-          <div class="instrument-chip">🎺 Trompete</div>
-          <div class="instrument-chip">🎻 Kontrabass</div>
-          <div class="instrument-chip">🎸 Bass</div>
-          <div class="instrument-chip">🎤 Gesang</div>
-          <div class="instrument-chip">+ mehr</div>
-        </div>
-        <p style="color:var(--muted);font-size:.875rem;line-height:1.8">
-          Ausgebildet an der Stadtmusikakademie Puerto Varas (2002–2007). 
-          Aktiver Session-Musiker, eigene Band sowie Mitwirkung in anderen Projekten. 
-          Live-Erfahrung in Europa und Chile.
-        </p>
-        <p style="color:var(--muted);font-size:.875rem;line-height:1.8;margin-top:1rem">
-          Teilnahme an Festivals wie <span style="color:var(--accent)">Under the Black Sun</span> 
-          und <span style="color:var(--accent)">Hole in the Sun</span> usw. 
-          Musik ist nicht Hobby — es ist ein fundamentaler Teil meines Denkens.
-        </p>
+        <div class="music-years-label" data-i18n="music.yearsLabel">Jahre aktive Musikerfahrung</div>
+        <div class="music-instruments" id="instrumentChips" style="margin-top:1.5rem"></div>
+        <p id="musicDescription1" style="color:var(--muted);font-size:.875rem;line-height:1.8"></p>
+        <p id="musicDescription2" style="color:var(--muted);font-size:.875rem;line-height:1.8;margin-top:1rem"></p>
       </div>
       <div class="reveal">
         <div class="music-timeline" id="musicTimeline"></div>
@@ -638,10 +627,10 @@ footer{
 <!-- ── CONTACT ────────────────────────────────────────────────────────────── -->
 <section id="contact">
   <div class="section">
-    <p class="section-label reveal">06 — Kontakt</p>
+    <p class="section-label reveal" data-i18n="sections.contact.label">06 — Kontakt</p>
     <div class="contact-inner">
-      <h2 class="section-title reveal">Lass uns reden.</h2>
-      <p class="reveal" style="color:var(--muted);font-size:.95rem;line-height:1.8;max-width:44ch">
+      <h2 class="section-title reveal" data-i18n="sections.contact.title">Lass uns reden.</h2>
+      <p class="reveal" data-i18n="contact.intro" style="color:var(--muted);font-size:.95rem;line-height:1.8;max-width:44ch">
         Ich bin offen für Junior-Stellen in Softwareentwicklung, Web, IT-Support 
         und Quereinsteigerpositionen ab Sommer 2026. Kurze Nachricht reicht.
       </p>
@@ -663,7 +652,7 @@ footer{
         </a>
         <a href="Damian_Avila_CV_v2.docx" class="contact-link" download>
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          CV herunterladen
+          <span data-i18n="contact.cvLabel">CV herunterladen</span>
         </a>
       </div>
     </div>
@@ -672,233 +661,15 @@ footer{
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
 <footer>
-  <p class="footer-copy">© 2026 Damian Antonio Avila — gebaut mit <span>♥</span> & TypeScript</p>
-  <a href="#hero" class="back-to-top">
+  <p class="footer-copy" data-i18n-html="footer.copy">© 2026 Damian Antonio Avila — gebaut mit <span>♥</span> & TypeScript</p>
+  <a href="#hero" class="back-to-top" data-i18n="contact.backToTop">
     Nach oben
     <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
   </a>
 </footer>
 
-<!-- ── TYPESCRIPT APP (compiled inline as ES module) ──────────────────────── -->
-<script type="module">
-// ════════════════════════════════════════════════════════════════════════════
-// DATA LAYER — TypeScript interfaces compiled to JS
-// ════════════════════════════════════════════════════════════════════════════
-
-const TYPED_STRINGS = [
-  "Fachinformatiker Anwendungsentwicklung.",
-  "Full-Stack Web Developer.",
-  "IT-Quereinsteiger mit 14 Jahren Erfahrung.",
-  "Musiker. Problemlöser. Teamplayer.",
-  "Verfügbar ab Sommer 2026."
-];
-
-const SKILL_GROUPS = [
-  {
-    title: "Frontend",
-    color: "accent3",
-    skills: [
-      { name: "HTML5 / CSS3", level: 0.88 },
-      { name: "JavaScript ES6+", level: 0.82 },
-      { name: "TypeScript", level: 0.72 },
-      { name: "React (Grundlagen)", level: 0.55 },
-    ]
-  },
-  {
-    title: "Backend",
-    color: "accent2",
-    skills: [
-      { name: "Node.js / Express", level: 0.80 },
-      { name: "REST API Design", level: 0.78 },
-      { name: "Java", level: 0.70 },
-      { name: "Python", level: 0.65 },
-    ]
-  },
-  {
-    title: "Datenbank & DevOps",
-    color: "accent",
-    skills: [
-      { name: "SQL / SQLite3", level: 0.75 },
-      { name: "Git / GitHub", level: 0.85 },
-      { name: "Linux CLI", level: 0.65 },
-      { name: "Scrum / Kanban", level: 0.80 },
-    ]
-  },
-  {
-    title: "Soft Skills",
-    color: "accent",
-    skills: [
-      { name: "Teamführung", level: 0.92 },
-      { name: "Kundenkommunikation", level: 0.95 },
-      { name: "Problemlösung", level: 0.90 },
-      { name: "Mehrsprachigkeit", level: 0.97 },
-    ]
-  }
-];
-
-const TIMELINE_ENTRIES = [
-  {
-    period: "04/2024 – 07/2026",
-    role: "Fachinformatiker Anwendungsentwicklung (Umschulung)",
-    company: "BBQ Baumann Bildung und Qualifizierung, Düsseldorf",
-    description: "Vollzeit-Umschulung mit Schwerpunkten auf Java, Python, Web-Entwicklung, Datenbanken und agilen Methoden. Abschlussprojekt: Inventar- und Bestandsverwaltungssystem (IHK 2026).",
-    tags: ["Java", "Python", "HTML/CSS/JS", "SQL", "Scrum", "IHK"]
-  },
-  {
-    period: "01/2024 – 03/2024",
-    role: "Full-Stack Web Development Bootcamp",
-    company: "Le Wagon Köln",
-    description: "Intensives 12-Wochen-Bootcamp. Teamprojekte: FoodBook (Rezept-App) und AirBnB-Klon. Fokus auf praxisorientierte Webentwicklung mit modernen Tools.",
-    tags: ["Ruby on Rails", "JavaScript", "Git", "REST API", "UI/UX"]
-  },
-  {
-    period: "04/2018 – 09/2019",
-    role: "ROV-Pilot — Industrielle Unterwasserrobotik",
-    company: "Diving Service Chile",
-    description: "Steuerung ferngesteuerter Unterwasserroboter für industrielle Inspektionen in der Aquakultur. Wartung und Kalibrierung technischer Systeme, Reporting ans Management.",
-    tags: ["Technisches System", "Präzisionsarbeit", "Inspektion", "Reporting"]
-  },
-  {
-    period: "01/2016 – 09/2017",
-    role: "Technischer Support-Agent – 1st & 2nd Level",
-    company: "Movistar Chile, Santiago",
-    description: "Technischer Kundensupport für Internet, Festnetz und TV. Fehleranalyse, Troubleshooting, CRM-Dokumentation. Hohe Erstlösungsquote.",
-    tags: ["IT-Support", "CRM", "Troubleshooting", "Telekommunikation"]
-  },
-  {
-    period: "12/2014 – 11/2015",
-    role: "Technical Backoffice Agent",
-    company: "VTR Chile, Santiago",
-    description: "Bearbeitung technischer Tickets, Netzwerkanalyse, Zusammenarbeit mit Fachabteilungen. Strukturierte Fallbearbeitung im B2C-Umfeld.",
-    tags: ["Backoffice", "Netzwerk", "B2C-Support", "Analyse"]
-  },
-  {
-    period: "2009 – 2020",
-    role: "Operations Manager / Schichtleiter",
-    company: "Gastronomie — Berlin · Essen · Santiago · Puerto Varas",
-    description: "Teamführung (bis 10 Mitarbeitende), Personalplanung, Inventar, Einkauf, Kassenführung. Operative Leitung in internationalen, hochdynamischen Umgebungen.",
-    tags: ["Teamführung", "Operations", "Internationale Erfahrung", "Prozesse"]
-  }
-];
-
-const PROJECTS = [
-  {
-    featured: true,
-    icon: "📦",
-    title: "Inventar- & Bestandsverwaltungssystem",
-    description: "Webbasiertes System für das BBQ-Labor Düsseldorf. Vollständige CRUD-Funktionalität, rollenbasierte Zugriffskontrolle (Admin/Dozent), JWT-Authentifizierung und ein 3-stufiger Prüfalgorithmus für automatische Bestandsverifizierung.",
-    stack: ["TypeScript", "Node.js", "Express.js", "SQLite3", "JWT", "HTML5", "CSS3", "bcryptjs"],
-    github: "https://github.com/DamianAntonioAvila",
-    pdf: "IHK_Projektdoku_DAMIAN_AVIla.pdf",
-    badge: "IHK Abschlussprojekt 2026"
-  },
-  {
-    featured: false,
-    icon: "🍽️",
-    title: "FoodBook",
-    description: "Webanwendung für Rezeptverwaltung und Einkaufslisten. Teamprojekt im Le Wagon Bootcamp. API-Integration, Benutzerverwaltung, responsive UI/UX.",
-    stack: ["Ruby on Rails", "JavaScript", "CSS3", "REST API", "PostgreSQL"],
-    github: "https://github.com/DamianAntonioAvila",
-  },
-  {
-    featured: false,
-    icon: "🏠",
-    title: "AirBnB-Klon",
-    description: "Vollständiger Klon der AirBnB-Kernfunktionalität als Abschlussprojekt. Suche, Filterung, Buchungssystem, Nutzerprofil.",
-    stack: ["Ruby on Rails", "Bootstrap", "PostgreSQL", "Google Maps API"],
-    github: "https://github.com/DamianAntonioAvila",
-  },
-  {
-    featured: false,
-    icon: "🌐",
-    title: "Portfolio Website",
-    description: "Diese Seite — gebaut mit TypeScript, Vanilla JS und purem CSS. Keine Frameworks, keine Build-Tools. Maximale Performance.",
-    stack: ["TypeScript", "CSS3", "HTML5", "Vanilla JS"],
-    github: "https://github.com/DamianAntonioAvila",
-  }
-];
-
-const MUSIC_EVENTS = [
-  { title: "Festival: Under the Black Sun", detail: "Friesack, Deutschland" },
-  { title: "Festival: Hole in the Sun", detail: "Rauschenberg, Deutschland" },
-  { title: "Live in Antwerpen", detail: "Belgien — eigene Band" },
-  { title: "Auftritte in Den Haag & Marl", detail: "Niederlande & Deutschland" },
-  { title: "Session-Musician, Santiago", detail: "Chile — diverse Projekte" },
-  { title: "Stadtmusikakademie Puerto Varas", detail: "Ausbildung 2002–2007" }
-];
-
-// ════════════════════════════════════════════════════════════════════════════
-// UTILITIES
-// ════════════════════════════════════════════════════════════════════════════
-
-function qs(sel) { return document.querySelector(sel); }
-function qsa(sel) { return document.querySelectorAll(sel); }
-
-// ════════════════════════════════════════════════════════════════════════════
-// CURSOR
-// ════════════════════════════════════════════════════════════════════════════
-
-function initCursor() {
-  const cursor = qs('#cursor');
-  const ring = qs('#cursor-ring');
-  if (!cursor || !ring) return;
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', (e) => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
-  function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-}
-
-// ════════════════════════════════════════════════════════════════════════════
-// NAVBAR SCROLL
-// ════════════════════════════════════════════════════════════════════════════
-
-function initNav() {
-  const nav = qs('#nav');
-  const hamburger = qs('#hamburger');
-  const mobileMenu = qs('#mobileMenu');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  }, { passive: true });
-  hamburger.addEventListener('click', () => {
-    mobileMenu.classList.toggle('open');
-  });
-  qsa('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-  });
-}
-
-// ════════════════════════════════════════════════════════════════════════════
-// TYPEWRITER
-// ════════════════════════════════════════════════════════════════════════════
-
-function initTyped() {
-  const el = qs('#typedText');
-  if (!el) return;
-  let si = 0, ci = 0, deleting = false;
-  function tick() {
-    const current = TYPED_STRINGS[si];
-    if (deleting) {
-      el.textContent = current.substring(0, ci--);
-      if (ci < 0) { deleting = false; si = (si + 1) % TYPED_STRINGS.length; setTimeout(tick, 400); return; }
-      setTimeout(tick, 40);
-    } else {
-      el.textContent = current.substring(0, ci++);
-      if (ci > current.length) { deleting = true; setTimeout(tick, 2200); return; }
-      setTimeout(tick, 60);
-    }
-  }
-  setTimeout(tick, 800);
-}
+<!-- ── LANGUAGE APP ─────────────────────────────────────────────────────── -->
+<script type="module" src="./portfolio_assets/i18n.js"></script>
 
 // ════════════════════════════════════════════════════════════════════════════
 // COUNTER ANIMATION
@@ -1130,6 +901,6 @@ if (document.readyState === 'loading') {
 } else {
   boot();
 }
-</script>
+</script> -->
 </body>
 </html>
