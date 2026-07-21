@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Damian Antonio Avila — Dev & Creative</title>
+<meta name="description" content="Portfolio von Damian Antonio Avila – Fachinformatiker Anwendungsentwicklung, Full-Stack Developer, Musiker, Düsseldorf."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET & BASE ────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:          #0c0c0e;
+  --bg2:         #111114;
+  --bg3:         #18181c;
+  --surface:     #1e1e24;
+  --border:      #2a2a33;
+  --border2:     #3a3a46;
+  --text:        #e8e4dc;
+  --muted:       #7a7880;
+  --accent:      #c8b89a;   /* warm parchment – ink on skin */
+  --accent2:     #e85d3a;   /* live wire red – music/energy */
+  --accent3:     #4a9eff;   /* electric blue – code/tech */
+  --serif:       'DM Serif Display', Georgia, serif;
+  --mono:        'DM Mono', 'Fira Code', monospace;
+  --sans:        'Syne', system-ui, sans-serif;
+  --max:         1200px;
+  --r:           4px;
+}
+html{scroll-behavior:smooth;background:var(--bg);color:var(--text);font-family:var(--sans)}
+body{min-height:100vh;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font-family:var(--sans);cursor:pointer;border:none;background:none}
+ul{list-style:none}
+
+/* ── SCROLLBAR ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* ── CURSOR ──────────────────────────────────────────────────────────────── */
+#cursor{
+  position:fixed;width:10px;height:10px;border-radius:50%;
+  background:var(--accent2);pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);transition:transform .1s,width .25s,height .25s,opacity .25s;
+  mix-blend-mode:screen;
+}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--accent);pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);transition:transform .35s cubic-bezier(.23,1,.32,1),width .25s,height .25s,opacity .25s;
+  opacity:.5;
+}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:20px;height:20px}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:60px;height:60px;opacity:.2}
+
+/* ── NOISE TEXTURE OVERLAY ───────────────────────────────────────────────── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.025;pointer-events:none;z-index:9990;
+}
+
+/* ── NAVBAR ──────────────────────────────────────────────────────────────── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;
+  transition:background .4s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+#nav.scrolled{background:rgba(12,12,14,.92);backdrop-filter:blur(16px);border-color:var(--border)}
+.nav-logo{
+  font-family:var(--serif);font-size:1.35rem;letter-spacing:-.01em;color:var(--accent);
+}
+.nav-logo span{color:var(--accent2)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{
+  font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{
+  padding:.5rem 1.25rem;border:1px solid var(--accent2);color:var(--accent2);
+  font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
+  border-radius:var(--r);transition:background .2s,color .2s;
+}
+.nav-cta:hover{background:var(--accent2);color:#fff}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:1px;background:var(--text);transition:.3s}
+.nav-mobile{
+  display:none;position:fixed;inset:0;z-index:800;background:var(--bg2);
+  flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
+}
+.nav-mobile.open{display:flex}
+.nav-mobile a{font-size:1.5rem;font-family:var(--serif);color:var(--text)}
+
+/* ── HERO ────────────────────────────────────────────────────────────────── */
+#hero{
+  min-height:100vh;display:grid;align-items:center;
+  padding:8rem 2.5rem 4rem;max-width:var(--max);margin:0 auto;
+  position:relative;
+}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:.75rem;color:var(--accent3);
+  letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.hero-eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--accent3)}
+.hero-name{
+  font-family:var(--serif);font-size:clamp(3rem,8vw,7rem);
+  line-height:.95;letter-spacing:-.02em;color:var(--text);margin-bottom:.5rem;
+}
+.hero-name em{color:var(--accent);font-style:italic}
+.hero-title{
+  font-family:var(--mono);font-size:clamp(.9rem,2vw,1.15rem);
+  color:var(--muted);margin:1.5rem 0 2.5rem;max-width:38ch;line-height:1.7;
+}
+.hero-title .typed-text{color:var(--accent2)}
+.hero-title .typed-cursor{
+  display:inline-block;width:2px;height:1.1em;background:var(--accent2);
+  vertical-align:middle;margin-left:2px;animation:blink .75s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{
+  padding:.75rem 2rem;background:var(--accent2);color:#fff;
+  font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;border-radius:var(--r);
+  transition:transform .2s,box-shadow .2s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,93,58,.35)}
+.btn-secondary{
+  padding:.75rem 2rem;border:1px solid var(--border2);color:var(--text);
+  font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;border-radius:var(--r);
+  transition:border-color .2s,background .2s;
+}
+.btn-secondary:hover{border-color:var(--accent);background:rgba(200,184,154,.05)}
+.hero-scroll-hint{
+  position:absolute;bottom:2.5rem;left:2.5rem;
+  font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.1em;
+  display:flex;align-items:center;gap:.75rem;
+}
+.hero-scroll-hint::after{
+  content:'';display:block;width:40px;height:1px;background:var(--muted);
+  animation:grow 2s ease-in-out infinite;
+}
+@keyframes grow{0%,100%{width:20px;opacity:.3}50%{width:50px;opacity:.8}}
+.hero-stats{
+  display:flex;gap:3rem;margin-top:3rem;flex-wrap:wrap;
+  border-top:1px solid var(--border);padding-top:2rem;
+}
+.stat-item .stat-num{
+  font-family:var(--serif);font-size:2.5rem;color:var(--accent);line-height:1;
+}
+.stat-item .stat-label{
+  font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.1em;
+  text-transform:uppercase;margin-top:.25rem;
+}
+
+/* ── SECTION WRAPPER ─────────────────────────────────────────────────────── */
+.section{padding:5rem 2.5rem;max-width:var(--max);margin:0 auto}
+.section-label{
+  font-family:var(--mono);font-size:.7rem;color:var(--accent3);
+  letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.section-label::before{content:'';display:block;width:1.5rem;height:1px;background:var(--accent3)}
+.section-title{
+  font-family:var(--serif);font-size:clamp(1.75rem,4vw,3rem);
+  line-height:1.1;letter-spacing:-.02em;margin-bottom:3rem;
+}
+.section-divider{border:none;border-top:1px solid var(--border);margin:0}
+
+/* ── ABOUT ───────────────────────────────────────────────────────────────── */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-text p{
+  color:var(--muted);line-height:1.8;font-size:.95rem;margin-bottom:1.25rem;
+}
+.about-text p strong{color:var(--text)}
+.about-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.tag{
+  padding:.35rem .85rem;border:1px solid var(--border2);border-radius:var(--r);
+  font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.05em;
+  transition:border-color .2s,color .2s;
+}
+.tag:hover{border-color:var(--accent);color:var(--accent)}
+.about-aside{display:flex;flex-direction:column;gap:1.25rem}
+.about-card{
+  padding:1.25rem;background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);transition:border-color .25s;
+}
+.about-card:hover{border-color:var(--accent2)}
+.about-card-icon{font-size:1.25rem;margin-bottom:.5rem}
+.about-card-title{
+  font-family:var(--mono);font-size:.75rem;color:var(--accent);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;
+}
+.about-card-text{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+/* ── SKILLS ──────────────────────────────────────────────────────────────── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.skill-group{
+  padding:1.5rem;background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);
+}
+.skill-group-title{
+  font-family:var(--mono);font-size:.7rem;color:var(--accent3);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;
+  padding-bottom:.75rem;border-bottom:1px solid var(--border);
+}
+.skill-list{display:flex;flex-direction:column;gap:.6rem}
+.skill-item{display:flex;justify-content:space-between;align-items:center;gap:.75rem}
+.skill-name{font-size:.85rem;color:var(--text);white-space:nowrap}
+.skill-bar{flex:1;height:2px;background:var(--border);border-radius:1px;overflow:hidden}
+.skill-fill{
+  height:100%;border-radius:1px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .8s cubic-bezier(.23,1,.32,1);
+}
+.skill-fill.accent2{background:var(--accent2)}
+.skill-fill.accent3{background:var(--accent3)}
+.skill-item.animated .skill-fill{transform:scaleX(1)}
+
+/* ── EXPERIENCE / TIMELINE ───────────────────────────────────────────────── */
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{
+  content:'';position:absolute;left:0;top:.5rem;bottom:0;
+  width:1px;background:var(--border);
+}
+.timeline-entry{
+  position:relative;padding-bottom:2.5rem;
+  opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;
+}
+.timeline-entry.visible{opacity:1;transform:none}
+.timeline-dot{
+  position:absolute;left:-2rem;top:.45rem;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--bg);border:1px solid var(--border2);
+  transform:translateX(calc(-50% + .5px));
+  transition:background .3s,border-color .3s;
+}
+.timeline-entry:hover .timeline-dot{background:var(--accent2);border-color:var(--accent2)}
+.timeline-period{
+  font-family:var(--mono);font-size:.7rem;color:var(--accent3);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;
+}
+.timeline-role{
+  font-family:var(--serif);font-size:1.25rem;color:var(--text);
+  margin-bottom:.2rem;letter-spacing:-.01em;
+}
+.timeline-company{
+  font-size:.8rem;color:var(--accent);margin-bottom:.75rem;
+  font-family:var(--mono);
+}
+.timeline-desc{font-size:.875rem;color:var(--muted);line-height:1.7;max-width:60ch}
+.timeline-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
+.timeline-tag{
+  padding:.2rem .65rem;background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);font-family:var(--mono);font-size:.65rem;color:var(--muted);
+}
+
+/* ── PROJECTS ────────────────────────────────────────────────────────────── */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.project-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;transition:border-color .3s,transform .3s;
+  display:flex;flex-direction:column;
+  opacity:0;transform:translateY(24px);
+}
+.project-card.visible{opacity:1;transform:none;transition:border-color .3s,transform .6s,opacity .6s}
+.project-card:hover{border-color:var(--accent2);transform:translateY(-4px)}
+.project-header{
+  padding:1.5rem 1.5rem 1rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:1rem;
+}
+.project-icon{font-size:1.5rem}
+.project-links{display:flex;gap:.75rem}
+.project-link{
+  font-family:var(--mono);font-size:.65rem;color:var(--muted);
+  letter-spacing:.08em;text-transform:uppercase;padding:.3rem .6rem;
+  border:1px solid var(--border2);border-radius:var(--r);
+  transition:color .2s,border-color .2s;
+}
+.project-link:hover{color:var(--accent3);border-color:var(--accent3)}
+.project-body{padding:1.25rem 1.5rem;flex:1;display:flex;flex-direction:column}
+.project-title{
+  font-family:var(--serif);font-size:1.15rem;color:var(--text);
+  margin-bottom:.5rem;letter-spacing:-.01em;
+}
+.project-desc{font-size:.85rem;color:var(--muted);line-height:1.7;flex:1;margin-bottom:1rem}
+.project-stack{display:flex;flex-wrap:wrap;gap:.4rem}
+.stack-item{
+  font-family:var(--mono);font-size:.65rem;color:var(--accent3);
+  background:rgba(74,158,255,.08);border:1px solid rgba(74,158,255,.2);
+  padding:.2rem .55rem;border-radius:var(--r);
+}
+.project-featured{
+  grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;
+}
+.project-featured .project-body{padding:2rem}
+.project-featured .project-title{font-size:1.5rem}
+.project-featured .project-desc{font-size:.9rem}
+.project-featured-badge{
+  display:inline-block;font-family:var(--mono);font-size:.65rem;
+  color:var(--accent2);border:1px solid var(--accent2);
+  padding:.2rem .65rem;border-radius:var(--r);margin-bottom:.75rem;letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.project-featured .project-header{border-bottom:none;flex-direction:column;justify-content:space-between}
+.project-mockup{
+  background:var(--bg3);padding:2rem;
+  display:flex;align-items:center;justify-content:center;
+  min-height:200px;
+  border-left:1px solid var(--border);
+}
+.mockup-window{
+  width:100%;max-width:340px;
+  background:var(--bg);border:1px solid var(--border2);border-radius:8px;overflow:hidden;
+}
+.mockup-bar{
+  padding:.5rem .75rem;background:var(--bg3);border-bottom:1px solid var(--border);
+  display:flex;gap:.4rem;align-items:center;
+}
+.mockup-dot{width:8px;height:8px;border-radius:50%}
+.mockup-dot:nth-child(1){background:#ff5f56}
+.mockup-dot:nth-child(2){background:#ffbd2e}
+.mockup-dot:nth-child(3){background:#27c93f}
+.mockup-url{
+  margin-left:auto;font-family:var(--mono);font-size:.6rem;color:var(--muted);
+  padding:.15rem .5rem;background:var(--bg2);border-radius:2px;
+}
+.mockup-body{padding:1rem;font-family:var(--mono);font-size:.65rem;color:var(--muted);line-height:1.8}
+.mockup-line{display:flex;gap:.5rem;margin:.2rem 0}
+.mockup-kw{color:var(--accent3)}
+.mockup-str{color:var(--accent)}
+.mockup-fn{color:var(--accent2)}
+
+/* ── MUSIC SECTION ───────────────────────────────────────────────────────── */
+#music{background:var(--bg2)}
+.music-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;align-items:start}
+.music-instruments{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin-bottom:2rem}
+.instrument-chip{
+  padding:.6rem 1rem;background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);font-family:var(--mono);font-size:.75rem;color:var(--muted);
+  transition:border-color .2s,color .2s;text-align:center;
+}
+.instrument-chip:hover{border-color:var(--accent);color:var(--accent)}
+.music-years{
+  font-family:var(--serif);font-size:4rem;color:var(--accent);line-height:1;margin-bottom:.5rem;
+}
+.music-years-label{font-family:var(--mono);font-size:.75rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.music-timeline{display:flex;flex-direction:column;gap:1rem}
+.music-event{
+  padding:1rem 1.25rem;background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);border-left:2px solid var(--accent2);
+  transition:border-left-color .2s;
+}
+.music-event:hover{border-left-color:var(--accent)}
+.music-event-title{font-family:var(--serif);font-size:1rem;color:var(--text);margin-bottom:.25rem}
+.music-event-detail{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.05em}
+
+/* ── CONTACT ─────────────────────────────────────────────────────────────── */
+#contact{
+  position:relative;overflow:hidden;
+  background:var(--bg2);
+}
+#contact::before{
+  content:'';position:absolute;top:-50%;right:-20%;
+  width:60vw;height:60vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,93,58,.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.contact-inner{max-width:640px}
+.contact-email{
+  font-family:var(--serif);font-size:clamp(1.5rem,3.5vw,2.5rem);
+  color:var(--accent);margin:1.5rem 0;letter-spacing:-.02em;
+  word-break:break-all;
+}
+.contact-email:hover{color:var(--accent2)}
+.contact-links{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem}
+.contact-link{
+  padding:.65rem 1.5rem;border:1px solid var(--border2);border-radius:var(--r);
+  font-family:var(--mono);font-size:.75rem;color:var(--muted);letter-spacing:.08em;
+  text-transform:uppercase;transition:border-color .2s,color .2s,background .2s;
+  display:flex;align-items:center;gap:.5rem;
+}
+.contact-link:hover{border-color:var(--accent3);color:var(--accent3);background:rgba(74,158,255,.05)}
+.contact-link svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+footer{
+  padding:2rem 2.5rem;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:var(--max);margin:0 auto;
+}
+.footer-copy{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+.footer-copy span{color:var(--accent2)}
+.back-to-top{
+  font-family:var(--mono);font-size:.7rem;color:var(--muted);
+  letter-spacing:.1em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.5rem;
+  transition:color .2s;
+}
+.back-to-top:hover{color:var(--text)}
+.back-to-top svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
+
+/* ── REVEAL ANIMATION ────────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media(max-width:768px){
+  #nav{padding:1rem 1.25rem}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  #hero{padding:7rem 1.25rem 3rem}
+  .about-grid,.music-grid{grid-template-columns:1fr}
+  .project-featured{grid-template-columns:1fr}
+  .project-mockup{display:none}
+  .timeline{padding-left:1.25rem}
+  .section{padding:4rem 1.25rem}
+  footer{flex-direction:column;gap:1rem;text-align:center;padding:1.5rem 1.25rem}
+  #cursor,#cursor-ring{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ── CUSTOM CURSOR ──────────────────────────────────────────────────────── -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ── NAVBAR ─────────────────────────────────────────────────────────────── -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">DAA<span>.</span></a>
+  <div class="nav-links">
+    <a href="#about">Über mich</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Erfahrung</a>
+    <a href="#projects">Projekte</a>
+    <a href="#music">Musik</a>
+    <a href="#contact" class="nav-cta">Kontakt</a>
+  </div>
+  <div class="hamburger" id="hamburger" aria-label="Menü öffnen" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── MOBILE MENU ────────────────────────────────────────────────────────── -->
+<div class="nav-mobile" id="mobileMenu">
+  <a href="#about" class="mobile-link">Über mich</a>
+  <a href="#skills" class="mobile-link">Skills</a>
+  <a href="#experience" class="mobile-link">Erfahrung</a>
+  <a href="#projects" class="mobile-link">Projekte</a>
+  <a href="#music" class="mobile-link">Musik</a>
+  <a href="#contact" class="mobile-link">Kontakt</a>
+</div>
+
+<!-- ── HERO ───────────────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div>
+    <p class="hero-eyebrow">Düsseldorf, Deutschland — Ab sofort verfügbar!</p>
+    <h1 class="hero-name">
+      Damian<br><em>Antonio</em><br>Avila
+    </h1>
+    <p class="hero-title">
+      <span class="typed-text" id="typedText"></span><span class="typed-cursor"></span>
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">Projekte ansehen</a>
+      <a href="#contact" class="btn-secondary">Kontakt aufnehmen</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num" id="countYears">0</div>
+        <div class="stat-label">Jahre Berufserfahrung</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="countInstruments">0</div>
+        <div class="stat-label">Instrumente</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="countLangs">0</div>
+        <div class="stat-label">Sprachen</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">scroll</div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- ── ABOUT ──────────────────────────────────────────────────────────────── -->
+<section id="about">
+  <div class="section">
+    <p class="section-label reveal">01 — Profil</p>
+    <h2 class="section-title reveal">Wer ich bin</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          Ich bin <strong>Damian</strong> — gebürtig aus Neuquén, Argentinien, 
+          aufgewachsen in Südchile, heute in <strong>Düsseldorf</strong> verwurzelt.
+          Mein Weg in die IT ist kein geradliniger, aber ein ehrlicher: 19 Jahre 
+          internationale Berufserfahrung, Zwei Kontinente, und eine echte 
+          Leidenschaft für das Bauen von Dingen, die funktionieren.
+        </p>
+        <p>
+          Aktuell schließe ich meine <strong>Umschulung zum Fachinformatiker 
+          Anwendungsentwicklung</strong> bei BBQ Düsseldorf ab (IHK 2026).
+          Parallel dazu habe ich ein vollständiges Inventar- und 
+          Bestandsverwaltungssystem für das BBQ-Labor entwickelt — von der 
+          Konzeption bis zur Implementierung.
+        </p>
+        <p>
+          Ich bringe mit, was man nicht aus Büchern lernt: <strong>Stressresistenz</strong>,
+          echte Teamführung, internationale Kommunikation und die Fähigkeit, 
+          komplexe Probleme pragmatisch zu lösen. Tech ist mein neues Handwerk — 
+          und ich nehme es genauso ernst wie alles andere in meinem Leben.
+        </p>
+        <div class="about-tags">
+          <span class="tag">TypeScript</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">Express.js</span>
+          <span class="tag">SQL</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Scrum</span>
+          <span class="tag">Git</span>
+          <span class="tag">Java</span>
+          <span class="tag">Python</span>
+          <span class="tag">Linux CLI</span>
+        </div>
+      </div>
+      <div class="about-aside reveal">
+        <div class="about-card">
+          <div class="about-card-icon">🌍</div>
+          <div class="about-card-title">International</div>
+          <div class="about-card-text"> Chile · Deutschland · — gelebt, gearbeitet, aufgetreten. Multilingualität ist Alltag, nicht Skill-Badge.</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">⚡</div>
+          <div class="about-card-title">Quereinsteiger mit Tiefe</div>
+          <div class="about-card-text">Technischer Support, Telekommunikation, ROV-Pilotage, Gastronomie-Management — jede Rolle hat mein Denken geschärft.</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🎸</div>
+          <div class="about-card-title">Musiker & Kreativer</div>
+          <div class="about-card-text">25+ Jahre Musikerfahrung, 7 Instrumente, Live-Auftritte auf Festivals in Europa und Chile. Kreativität ist keine Dekoration — sie ist Denkweise.</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🤖</div>
+          <div class="about-card-title">AI-Native Workflow</div>
+          <div class="about-card-text">Ich kombiniere klassische Softwareentwicklung mit KI-gestützten Tools (Claude, Copilot, ChatGPT) für schnelleres Prototyping und besseres Debugging.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- ── SKILLS ─────────────────────────────────────────────────────────────── -->
+<section id="skills">
+  <div class="section">
+    <p class="section-label reveal">02 — Kompetenzen</p>
+    <h2 class="section-title reveal">Tech Stack &amp; Skills</h2>
+    <div class="skills-grid" id="skillsGrid"></div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- ── EXPERIENCE ─────────────────────────────────────────────────────────── -->
+<section id="experience">
+  <div class="section">
+    <p class="section-label reveal">03 — Werdegang</p>
+    <h2 class="section-title reveal">Erfahrung &amp; Ausbildung</h2>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- ── PROJECTS ───────────────────────────────────────────────────────────── -->
+<section id="projects">
+  <div class="section">
+    <p class="section-label reveal">04 — Portfolio</p>
+    <h2 class="section-title reveal">Projekte</h2>
+    <div class="projects-grid" id="projectsGrid"></div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- ── MUSIC ──────────────────────────────────────────────────────────────── -->
+<section id="music">
+  <div class="section">
+    <p class="section-label reveal">05 — Kreativität</p>
+    <h2 class="section-title reveal">Musik &amp; Kunst</h2>
+    <div class="music-grid">
+      <div class="reveal">
+        <div class="music-years">25+</div>
+        <div class="music-years-label">Jahre aktive Musikerfahrung</div>
+        <div class="music-instruments" style="margin-top:1.5rem">
+          <div class="instrument-chip">🎸 Gitarre</div>
+          <div class="instrument-chip">🎻 Cello</div>
+          <div class="instrument-chip">🥁 Schlagzeug</div>
+          <div class="instrument-chip">🎺 Trompete</div>
+          <div class="instrument-chip">🎻 Kontrabass</div>
+          <div class="instrument-chip">🎸 Bass</div>
+          <div class="instrument-chip">🎤 Gesang</div>
+          <div class="instrument-chip">+ mehr</div>
+        </div>
+        <p style="color:var(--muted);font-size:.875rem;line-height:1.8">
+          Ausgebildet an der Stadtmusikakademie Puerto Varas (2002–2007). 
+          Aktiver Session-Musiker, eigene Band sowie Mitwirkung in anderen Projekten. 
+          Live-Erfahrung in Europa und Chile.
+        </p>
+        <p style="color:var(--muted);font-size:.875rem;line-height:1.8;margin-top:1rem">
+          Teilnahme an Festivals wie <span style="color:var(--accent)">Under the Black Sun</span> 
+          und <span style="color:var(--accent)">Hole in the Sun</span> usw. 
+          Musik ist nicht Hobby — es ist ein fundamentaler Teil meines Denkens.
+        </p>
+      </div>
+      <div class="reveal">
+        <div class="music-timeline" id="musicTimeline"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- ── CONTACT ────────────────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="section">
+    <p class="section-label reveal">06 — Kontakt</p>
+    <div class="contact-inner">
+      <h2 class="section-title reveal">Lass uns reden.</h2>
+      <p class="reveal" style="color:var(--muted);font-size:.95rem;line-height:1.8;max-width:44ch">
+        Ich bin offen für Junior-Stellen in Softwareentwicklung, Web, IT-Support 
+        und Quereinsteigerpositionen ab Sommer 2026. Kurze Nachricht reicht.
+      </p>
+      <a href="mailto:damian.avilawel@gmail.com" class="contact-email reveal">
+        damian.avilawel@gmail.com
+      </a>
+      <div class="contact-links reveal">
+        <a href="https://github.com/DamianAntonioAvila" class="contact-link" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/damianantonioavila/" class="contact-link" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="tel:+4915755757588" class="contact-link">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6.08 6.08l1.1-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +49 15755 757588
+        </a>
+        <a href="Damian_Avila_CV_v2.docx" class="contact-link" download>
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          CV herunterladen
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <p class="footer-copy">© 2026 Damian Antonio Avila — gebaut mit <span>♥</span> & TypeScript</p>
+  <a href="#hero" class="back-to-top">
+    Nach oben
+    <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+  </a>
+</footer>
+
+<!-- ── TYPESCRIPT APP (compiled inline as ES module) ──────────────────────── -->
+<script type="module">
+// ════════════════════════════════════════════════════════════════════════════
+// DATA LAYER — TypeScript interfaces compiled to JS
+// ════════════════════════════════════════════════════════════════════════════
+
+const TYPED_STRINGS = [
+  "Fachinformatiker Anwendungsentwicklung.",
+  "Full-Stack Web Developer.",
+  "IT-Quereinsteiger mit 14 Jahren Erfahrung.",
+  "Musiker. Problemlöser. Teamplayer.",
+  "Verfügbar ab Sommer 2026."
+];
+
+const SKILL_GROUPS = [
+  {
+    title: "Frontend",
+    color: "accent3",
+    skills: [
+      { name: "HTML5 / CSS3", level: 0.88 },
+      { name: "JavaScript ES6+", level: 0.82 },
+      { name: "TypeScript", level: 0.72 },
+      { name: "React (Grundlagen)", level: 0.55 },
+    ]
+  },
+  {
+    title: "Backend",
+    color: "accent2",
+    skills: [
+      { name: "Node.js / Express", level: 0.80 },
+      { name: "REST API Design", level: 0.78 },
+      { name: "Java", level: 0.70 },
+      { name: "Python", level: 0.65 },
+    ]
+  },
+  {
+    title: "Datenbank & DevOps",
+    color: "accent",
+    skills: [
+      { name: "SQL / SQLite3", level: 0.75 },
+      { name: "Git / GitHub", level: 0.85 },
+      { name: "Linux CLI", level: 0.65 },
+      { name: "Scrum / Kanban", level: 0.80 },
+    ]
+  },
+  {
+    title: "Soft Skills",
+    color: "accent",
+    skills: [
+      { name: "Teamführung", level: 0.92 },
+      { name: "Kundenkommunikation", level: 0.95 },
+      { name: "Problemlösung", level: 0.90 },
+      { name: "Mehrsprachigkeit", level: 0.97 },
+    ]
+  }
+];
+
+const TIMELINE_ENTRIES = [
+  {
+    period: "04/2024 – 07/2026",
+    role: "Fachinformatiker Anwendungsentwicklung (Umschulung)",
+    company: "BBQ Baumann Bildung und Qualifizierung, Düsseldorf",
+    description: "Vollzeit-Umschulung mit Schwerpunkten auf Java, Python, Web-Entwicklung, Datenbanken und agilen Methoden. Abschlussprojekt: Inventar- und Bestandsverwaltungssystem (IHK 2026).",
+    tags: ["Java", "Python", "HTML/CSS/JS", "SQL", "Scrum", "IHK"]
+  },
+  {
+    period: "01/2024 – 03/2024",
+    role: "Full-Stack Web Development Bootcamp",
+    company: "Le Wagon Köln",
+    description: "Intensives 12-Wochen-Bootcamp. Teamprojekte: FoodBook (Rezept-App) und AirBnB-Klon. Fokus auf praxisorientierte Webentwicklung mit modernen Tools.",
+    tags: ["Ruby on Rails", "JavaScript", "Git", "REST API", "UI/UX"]
+  },
+  {
+    period: "04/2018 – 09/2019",
+    role: "ROV-Pilot — Industrielle Unterwasserrobotik",
+    company: "Diving Service Chile",
+    description: "Steuerung ferngesteuerter Unterwasserroboter für industrielle Inspektionen in der Aquakultur. Wartung und Kalibrierung technischer Systeme, Reporting ans Management.",
+    tags: ["Technisches System", "Präzisionsarbeit", "Inspektion", "Reporting"]
+  },
+  {
+    period: "01/2016 – 09/2017",
+    role: "Technischer Support-Agent – 1st & 2nd Level",
+    company: "Movistar Chile, Santiago",
+    description: "Technischer Kundensupport für Internet, Festnetz und TV. Fehleranalyse, Troubleshooting, CRM-Dokumentation. Hohe Erstlösungsquote.",
+    tags: ["IT-Support", "CRM", "Troubleshooting", "Telekommunikation"]
+  },
+  {
+    period: "12/2014 – 11/2015",
+    role: "Technical Backoffice Agent",
+    company: "VTR Chile, Santiago",
+    description: "Bearbeitung technischer Tickets, Netzwerkanalyse, Zusammenarbeit mit Fachabteilungen. Strukturierte Fallbearbeitung im B2C-Umfeld.",
+    tags: ["Backoffice", "Netzwerk", "B2C-Support", "Analyse"]
+  },
+  {
+    period: "2009 – 2020",
+    role: "Operations Manager / Schichtleiter",
+    company: "Gastronomie — Berlin · Essen · Santiago · Puerto Varas",
+    description: "Teamführung (bis 10 Mitarbeitende), Personalplanung, Inventar, Einkauf, Kassenführung. Operative Leitung in internationalen, hochdynamischen Umgebungen.",
+    tags: ["Teamführung", "Operations", "Internationale Erfahrung", "Prozesse"]
+  }
+];
+
+const PROJECTS = [
+  {
+    featured: true,
+    icon: "📦",
+    title: "Inventar- & Bestandsverwaltungssystem",
+    description: "Webbasiertes System für das BBQ-Labor Düsseldorf. Vollständige CRUD-Funktionalität, rollenbasierte Zugriffskontrolle (Admin/Dozent), JWT-Authentifizierung und ein 3-stufiger Prüfalgorithmus für automatische Bestandsverifizierung.",
+    stack: ["TypeScript", "Node.js", "Express.js", "SQLite3", "JWT", "HTML5", "CSS3", "bcryptjs"],
+    github: "https://github.com/DamianAntonioAvila",
+    pdf: "IHK_Projektdoku_DAMIAN_AVIla.pdf",
+    badge: "IHK Abschlussprojekt 2026"
+  },
+  {
+    featured: false,
+    icon: "🍽️",
+    title: "FoodBook",
+    description: "Webanwendung für Rezeptverwaltung und Einkaufslisten. Teamprojekt im Le Wagon Bootcamp. API-Integration, Benutzerverwaltung, responsive UI/UX.",
+    stack: ["Ruby on Rails", "JavaScript", "CSS3", "REST API", "PostgreSQL"],
+    github: "https://github.com/DamianAntonioAvila",
+  },
+  {
+    featured: false,
+    icon: "🏠",
+    title: "AirBnB-Klon",
+    description: "Vollständiger Klon der AirBnB-Kernfunktionalität als Abschlussprojekt. Suche, Filterung, Buchungssystem, Nutzerprofil.",
+    stack: ["Ruby on Rails", "Bootstrap", "PostgreSQL", "Google Maps API"],
+    github: "https://github.com/DamianAntonioAvila",
+  },
+  {
+    featured: false,
+    icon: "🌐",
+    title: "Portfolio Website",
+    description: "Diese Seite — gebaut mit TypeScript, Vanilla JS und purem CSS. Keine Frameworks, keine Build-Tools. Maximale Performance.",
+    stack: ["TypeScript", "CSS3", "HTML5", "Vanilla JS"],
+    github: "https://github.com/DamianAntonioAvila",
+  }
+];
+
+const MUSIC_EVENTS = [
+  { title: "Festival: Under the Black Sun", detail: "Friesack, Deutschland" },
+  { title: "Festival: Hole in the Sun", detail: "Rauschenberg, Deutschland" },
+  { title: "Live in Antwerpen", detail: "Belgien — eigene Band" },
+  { title: "Auftritte in Den Haag & Marl", detail: "Niederlande & Deutschland" },
+  { title: "Session-Musician, Santiago", detail: "Chile — diverse Projekte" },
+  { title: "Stadtmusikakademie Puerto Varas", detail: "Ausbildung 2002–2007" }
+];
+
+// ════════════════════════════════════════════════════════════════════════════
+// UTILITIES
+// ════════════════════════════════════════════════════════════════════════════
+
+function qs(sel) { return document.querySelector(sel); }
+function qsa(sel) { return document.querySelectorAll(sel); }
+
+// ════════════════════════════════════════════════════════════════════════════
+// CURSOR
+// ════════════════════════════════════════════════════════════════════════════
+
+function initCursor() {
+  const cursor = qs('#cursor');
+  const ring = qs('#cursor-ring');
+  if (!cursor || !ring) return;
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// NAVBAR SCROLL
+// ════════════════════════════════════════════════════════════════════════════
+
+function initNav() {
+  const nav = qs('#nav');
+  const hamburger = qs('#hamburger');
+  const mobileMenu = qs('#mobileMenu');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  qsa('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// TYPEWRITER
+// ════════════════════════════════════════════════════════════════════════════
+
+function initTyped() {
+  const el = qs('#typedText');
+  if (!el) return;
+  let si = 0, ci = 0, deleting = false;
+  function tick() {
+    const current = TYPED_STRINGS[si];
+    if (deleting) {
+      el.textContent = current.substring(0, ci--);
+      if (ci < 0) { deleting = false; si = (si + 1) % TYPED_STRINGS.length; setTimeout(tick, 400); return; }
+      setTimeout(tick, 40);
+    } else {
+      el.textContent = current.substring(0, ci++);
+      if (ci > current.length) { deleting = true; setTimeout(tick, 2200); return; }
+      setTimeout(tick, 60);
+    }
+  }
+  setTimeout(tick, 800);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// COUNTER ANIMATION
+// ════════════════════════════════════════════════════════════════════════════
+
+function animateCount(el, target, suffix = '') {
+  let n = 0;
+  const step = Math.ceil(target / 40);
+  const timer = setInterval(() => {
+    n = Math.min(n + step, target);
+    el.textContent = n + suffix;
+    if (n >= target) clearInterval(timer);
+  }, 30);
+}
+
+function initCounters() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCount(qs('#countYears'), 14, '+');
+        animateCount(qs('#countInstruments'), 7);
+        animateCount(qs('#countLangs'), 3);
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+  const statsEl = qs('.hero-stats');
+  if (statsEl) observer.observe(statsEl);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SKILLS RENDER
+// ════════════════════════════════════════════════════════════════════════════
+
+function renderSkills() {
+  const grid = qs('#skillsGrid');
+  if (!grid) return;
+  grid.innerHTML = SKILL_GROUPS.map(group => `
+    <div class="skill-group reveal">
+      <div class="skill-group-title">${group.title}</div>
+      <div class="skill-list">
+        ${group.skills.map(s => `
+          <div class="skill-item">
+            <span class="skill-name">${s.name}</span>
+            <div class="skill-bar">
+              <div class="skill-fill ${group.color !== 'accent' ? group.color : ''}" style="--target:${s.level}"></div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  // Animate bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-item').forEach((item, i) => {
+          setTimeout(() => item.classList.add('animated'), i * 80);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  qsa('.skill-group').forEach(g => observer.observe(g));
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// TIMELINE RENDER
+// ════════════════════════════════════════════════════════════════════════════
+
+function renderTimeline() {
+  const container = qs('#timeline');
+  if (!container) return;
+  container.innerHTML = TIMELINE_ENTRIES.map(entry => `
+    <div class="timeline-entry">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">${entry.period}</div>
+      <div class="timeline-role">${entry.role}</div>
+      <div class="timeline-company">${entry.company}</div>
+      <p class="timeline-desc">${entry.description}</p>
+      <div class="timeline-tags">
+        ${entry.tags.map(t => `<span class="timeline-tag">${t}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+  qsa('.timeline-entry').forEach(el => observer.observe(el));
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// PROJECTS RENDER
+// ════════════════════════════════════════════════════════════════════════════
+
+function renderProjects() {
+  const grid = qs('#projectsGrid');
+  if (!grid) return;
+
+  const featured = PROJECTS.filter(p => p.featured);
+  const rest = PROJECTS.filter(p => !p.featured);
+
+  const featuredHTML = featured.map(p => `
+    <div class="project-card project-featured">
+      <div class="project-header">
+        <div>
+          <div class="project-icon">${p.icon}</div>
+          <span class="project-featured-badge">${p.badge || 'Featured'}</span>
+          <div class="project-title">${p.title}</div>
+        </div>
+        <div class="project-links">
+          ${p.pdf ? `<a href="${p.pdf}" class="project-link" target="_blank" rel="noopener">Präsentation PDF →</a>` : ''}
+          <a href="${p.github}" class="project-link" target="_blank" rel="noopener">GitHub →</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">${p.description}</p>
+        <div class="project-stack">
+          ${p.stack.map(s => `<span class="stack-item">${s}</span>`).join('')}
+        </div>
+      </div>
+      <div class="project-mockup">
+        <div class="mockup-window">
+          <div class="mockup-bar">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <span class="mockup-url">localhost:3000/dashboard</span>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-line"><span class="mockup-kw">const</span> <span style="color:var(--text)">app</span> = <span class="mockup-fn">express</span>()</div>
+            <div class="mockup-line"><span class="mockup-kw">app</span>.<span class="mockup-fn">use</span>(<span class="mockup-str">authMiddleware</span>)</div>
+            <div class="mockup-line" style="margin-top:.5rem"><span class="mockup-kw">router</span>.<span class="mockup-fn">get</span>(<span class="mockup-str">'/inventory'</span>, <span class="mockup-fn">async</span> (req, res) => {'{'}</div>
+            <div class="mockup-line" style="padding-left:1rem"><span class="mockup-kw">const</span> items = <span class="mockup-kw">await</span> db.<span class="mockup-fn">getAll</span>()</div>
+            <div class="mockup-line" style="padding-left:1rem">res.<span class="mockup-fn">json</span>({'{'} items, status: <span class="mockup-str">'ok'</span> {'}'})</div>
+            <div class="mockup-line">{'}'}<span class="mockup-kw">)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const restHTML = rest.map(p => `
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">${p.icon}</div>
+        <div class="project-links">
+          ${p.pdf ? `<a href="${p.pdf}" class="project-link" target="_blank" rel="noopener">Präsentation PDF →</a>` : ''}
+          <a href="${p.github}" class="project-link" target="_blank" rel="noopener">GitHub →</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">${p.title}</div>
+        <p class="project-desc">${p.description}</p>
+        <div class="project-stack">
+          ${p.stack.map(s => `<span class="stack-item">${s}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  grid.innerHTML = featuredHTML + restHTML;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  qsa('.project-card').forEach(el => observer.observe(el));
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// MUSIC RENDER
+// ════════════════════════════════════════════════════════════════════════════
+
+function renderMusic() {
+  const container = qs('#musicTimeline');
+  if (!container) return;
+  container.innerHTML = MUSIC_EVENTS.map(ev => `
+    <div class="music-event">
+      <div class="music-event-title">${ev.title}</div>
+      <div class="music-event-detail">${ev.detail}</div>
+    </div>
+  `).join('');
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SCROLL REVEAL
+// ════════════════════════════════════════════════════════════════════════════
+
+function initReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  // Observe after render
+  setTimeout(() => {
+    qsa('.reveal').forEach(el => observer.observe(el));
+  }, 100);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// BOOT
+// ════════════════════════════════════════════════════════════════════════════
+
+function boot() {
+  initCursor();
+  initNav();
+  initTyped();
+  initCounters();
+  renderSkills();
+  renderTimeline();
+  renderProjects();
+  renderMusic();
+  initReveal();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
+}
+</script>
+</body>
+</html>
