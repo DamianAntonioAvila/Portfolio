@@ -212,8 +212,8 @@ const CONTENT = {
     ],
     musicEvents: [
       { title: 'Festival: Under the Black Sun', detail: 'Thüringen, Deutschland' },
-      { title: 'Festival: Hall in the Sun', detail: 'Novahausen, Deutschland' },
-      { title: 'Live in Antwerpen & Brüssel', detail: 'Belgien — eigene Band' },
+      { title: 'Festival: Hole in the Sun', detail: 'Novahausen, Deutschland' },
+      { title: 'Live in Antwerpen', detail: 'Belgien — eigene Band' },
       { title: 'Auftritte in Den Haag & Marl', detail: 'Niederlande & Deutschland' },
       { title: 'Session-Musiker, Santiago', detail: 'Chile — diverse Projekte' },
       { title: 'Stadtmusikakademie Puerto Varas', detail: 'Ausbildung 2002–2007' }
@@ -428,8 +428,8 @@ const CONTENT = {
     ],
     musicEvents: [
       { title: 'Festival: Under the Black Sun', detail: 'Thuringia, Germany' },
-      { title: 'Festival: Hall in the Sun', detail: 'Novahausen, Germany' },
-      { title: 'Live in Antwerpen & Brussels', detail: 'Belgium — own band' },
+      { title: 'Festival: Hole in the Sun', detail: 'Novahausen, Germany' },
+      { title: 'Live in Antwerpen', detail: 'Belgium — own band' },
       { title: 'Performances in The Hague & Marl', detail: 'Netherlands & Germany' },
       { title: 'Session musician, Santiago', detail: 'Chile — various projects' },
       { title: 'Puerto Varas City Music Academy', detail: 'Training 2002–2007' }
@@ -644,8 +644,8 @@ const CONTENT = {
     ],
     musicEvents: [
       { title: 'Festival: Under the Black Sun', detail: 'Turingia, Alemania' },
-      { title: 'Festival: Hall in the Sun', detail: 'Novahausen, Alemania' },
-      { title: 'Live in Antwerpen & Bruselas', detail: 'Bélgica — propia banda' },
+      { title: 'Festival: Hole in the Sun', detail: 'Novahausen, Alemania' },
+      { title: 'Live in Antwerpen', detail: 'Bélgica — propia banda' },
       { title: 'Actuaciones en La Haya y Marl', detail: 'Países Bajos & Alemania' },
       { title: 'Músico de sesión, Santiago', detail: 'Chile — diversos proyectos' },
       { title: 'Academia de Música de Puerto Varas', detail: 'Formación 2002–2007' }
