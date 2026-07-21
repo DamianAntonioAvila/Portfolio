@@ -811,35 +811,25 @@ function renderProjects() {
 
   const featuredHTML = featured.map((project) => `
     <div class="project-card project-featured">
-      <div class="project-preview">
-        <div class="project-preview-badge">${project.badge || 'Professional Project'}</div>
-        <div class="project-preview-box">
-          <div class="project-preview-line"></div>
-          <div class="project-preview-line short"></div>
-          <div class="project-preview-line medium"></div>
-          <div class="project-preview-line tall"></div>
+      <div class="project-header">
+        <div>
+          <div class="project-icon">${project.icon}</div>
+          <div class="project-title">${project.title}</div>
+          <div class="project-featured-badge">${project.badge || 'Professional Project'}</div>
+          <p class="project-desc">${project.summary}</p>
         </div>
+        <div class="project-links">${buildLinks(project)}</div>
       </div>
-      <div class="project-content">
-        <div class="project-header">
-          <div>
-            <div class="project-icon">${project.icon}</div>
-            <div class="project-title">${project.title}</div>
-            <p class="project-subtitle">${project.summary}</p>
-          </div>
-          <div class="project-links">${buildLinks(project)}</div>
+      <div class="project-body">
+        <p class="project-desc">${project.description}</p>
+        <div class="project-features">
+          <div class="project-features-title">${project.highlightsLabel || 'Highlights'}</div>
+          <ul class="project-feature-list">
+            ${project.features.map((feature) => `<li>${feature}</li>`).join('')}
+          </ul>
         </div>
-        <div class="project-body">
-          <p class="project-desc">${project.description}</p>
-          <div class="project-features">
-            <div class="project-features-title">${project.highlightsLabel || 'Highlights'}</div>
-            <ul class="project-feature-list">
-              ${project.features.map((feature) => `<li>${feature}</li>`).join('')}
-            </ul>
-          </div>
-          <div class="project-stack">
-            ${project.stack.map((item) => `<span class="stack-item">${item}</span>`).join('')}
-          </div>
+        <div class="project-stack">
+          ${project.stack.map((item) => `<span class="stack-item">${item}</span>`).join('')}
         </div>
       </div>
     </div>
@@ -847,34 +837,24 @@ function renderProjects() {
 
   const restHTML = rest.map((project) => `
     <div class="project-card">
-      <div class="project-preview">
-        <div class="project-preview-badge">${project.badge || 'Project'}</div>
-        <div class="project-preview-box">
-          <div class="project-preview-line"></div>
-          <div class="project-preview-line short"></div>
-          <div class="project-preview-line medium"></div>
+      <div class="project-header">
+        <div>
+          <div class="project-icon">${project.icon}</div>
+          <div class="project-title">${project.title}</div>
+          <p class="project-desc">${project.summary}</p>
         </div>
+        <div class="project-links">${buildLinks(project)}</div>
       </div>
-      <div class="project-content">
-        <div class="project-header">
-          <div>
-            <div class="project-icon">${project.icon}</div>
-            <div class="project-title">${project.title}</div>
-            <p class="project-subtitle">${project.summary}</p>
-          </div>
-          <div class="project-links">${buildLinks(project)}</div>
+      <div class="project-body">
+        <p class="project-desc">${project.description}</p>
+        <div class="project-features">
+          <div class="project-features-title">${project.highlightsLabel || 'Highlights'}</div>
+          <ul class="project-feature-list">
+            ${project.features.map((feature) => `<li>${feature}</li>`).join('')}
+          </ul>
         </div>
-        <div class="project-body">
-          <p class="project-desc">${project.description}</p>
-          <div class="project-features">
-            <div class="project-features-title">${project.highlightsLabel || 'Highlights'}</div>
-            <ul class="project-feature-list">
-              ${project.features.map((feature) => `<li>${feature}</li>`).join('')}
-            </ul>
-          </div>
-          <div class="project-stack">
-            ${project.stack.map((item) => `<span class="stack-item">${item}</span>`).join('')}
-          </div>
+        <div class="project-stack">
+          ${project.stack.map((item) => `<span class="stack-item">${item}</span>`).join('')}
         </div>
       </div>
     </div>
