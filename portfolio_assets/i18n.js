@@ -170,7 +170,7 @@ const CONTENT = {
       {
         featured: true,
         icon: '📦',
-        title: 'Inventar- & Bestandsverwaltungssystem',
+        title: 'BBQ Inventory Management System',
         summary: 'Praxisnahes Projekt mit Fokus auf Rollenverwaltung, Geräteverwaltung und automatisierten Berichten.',
         description: 'Full-Stack-Webanwendung zur Verwaltung von Inventar und Beständen für eine IT-Lernumgebung.',
         features: ['Benutzerrollen (Admin / Lehrer)', 'Geräteverwaltung', 'Bestandsbewegungen', 'E-Mail-Benachrichtigungen', 'PDF-Berichte', 'CSV Export'],
@@ -388,7 +388,7 @@ const CONTENT = {
       {
         featured: true,
         icon: '📦',
-        title: 'Inventory & stock management system',
+        title: 'BBQ Inventory Management System',
         summary: 'Practical project focused on role management, device tracking, and automated reporting.',
         description: 'Full-stack web application for managing inventory and stock in an IT learning environment.',
         features: ['User roles (admin / teacher)', 'Device management', 'Stock movements', 'Email notifications', 'PDF reports', 'CSV export'],
@@ -604,7 +604,7 @@ const CONTENT = {
       {
         featured: true,
         icon: '📦',
-        title: 'Sistema de gestión de inventario y stock',
+        title: 'Sistema de gestión de inventario BBQ',
         summary: 'Proyecto práctico enfocado en gestión de roles, control de dispositivos y reportes automatizados.',
         description: 'Aplicación web full-stack para la gestión de inventario y stock en un entorno de aprendizaje de TI.',
         features: ['Roles de usuario (admin / profesor)', 'Gestión de dispositivos', 'Movimientos de stock', 'Notificaciones por correo', 'Informes PDF', 'Exportación CSV'],
