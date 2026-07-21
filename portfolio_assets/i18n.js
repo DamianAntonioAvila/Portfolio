@@ -212,7 +212,7 @@ const CONTENT = {
     ],
     musicEvents: [
       { title: 'Festival: Under the Black Sun', detail: 'Thüringen, Deutschland' },
-      { title: 'Festival: Hole in the Sun', detail: 'Novahausen, Deutschland' },
+      { title: 'Festival: Hole in the Sun', detail: 'Rauschenberg, Deutschland' },
       { title: 'Live in Antwerpen', detail: 'Belgien — eigene Band' },
       { title: 'Auftritte in Den Haag & Marl', detail: 'Niederlande & Deutschland' },
       { title: 'Session-Musiker, Santiago', detail: 'Chile — diverse Projekte' },
@@ -428,7 +428,7 @@ const CONTENT = {
     ],
     musicEvents: [
       { title: 'Festival: Under the Black Sun', detail: 'Thuringia, Germany' },
-      { title: 'Festival: Hole in the Sun', detail: 'Novahausen, Germany' },
+      { title: 'Festival: Hole in the Sun', detail: 'Rauschenberg, Germany' },
       { title: 'Live in Antwerpen', detail: 'Belgium — own band' },
       { title: 'Performances in The Hague & Marl', detail: 'Netherlands & Germany' },
       { title: 'Session musician, Santiago', detail: 'Chile — various projects' },
@@ -644,7 +644,7 @@ const CONTENT = {
     ],
     musicEvents: [
       { title: 'Festival: Under the Black Sun', detail: 'Turingia, Alemania' },
-      { title: 'Festival: Hole in the Sun', detail: 'Novahausen, Alemania' },
+      { title: 'Festival: Hole in the Sun', detail: 'Rauschenberg, Alemania' },
       { title: 'Live in Antwerpen', detail: 'Bélgica — propia banda' },
       { title: 'Actuaciones en La Haya y Marl', detail: 'Países Bajos & Alemania' },
       { title: 'Músico de sesión, Santiago', detail: 'Chile — diversos proyectos' },
